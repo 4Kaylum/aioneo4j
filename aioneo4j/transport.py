@@ -81,7 +81,7 @@ class Transport:
         response = None
 
         try:
-            logger.debug(f"Performing {method.upper()} {url} ({params}) with data {data} and auth {self.auth}")
+            logger.debug(f"Sending {method.upper()} {url} ({params}) with data {data}")
             response = await self.session.request(
                 method,
                 url,
@@ -147,7 +147,6 @@ class Transport:
 
         # Work out our URL
         _url = self.url / f'db/{self.database}/{path}'
-        logger.debug(f"Sending request to {_url} with data {data}")
         _coro = self._perform_request(method, _url, params=params, data=data)
 
         # Work out our timeout

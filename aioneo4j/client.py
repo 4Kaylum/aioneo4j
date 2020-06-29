@@ -69,7 +69,7 @@ class Client(object):
             assert not params
             request = query
         else:
-            request = {'query': query}
+            request = {'statement': query}
             if params:
                 request['params'] = params
         request = {'statements': [request]}
