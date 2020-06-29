@@ -18,15 +18,18 @@ class Transport:
         The base URL of the database for us to connect to
     auth: :class:`tuple`
         The (username, password) pair for us to authenticate with
+    database: :class:`str`
+        The name of the database we'll be connecting to
     request_timeout: :class:`float`
         The timeout to be used when performing a request
     """
 
     _auth = None
 
-    def __init__(self, url, auth, encoder=json.dumps, decoder=json.loads, encoder_errors=(TypeError, ValueError), decoder_errors=(TypeError, ValueError), request_timeout=..., session=None, maxsize=20, use_dns_cache=False, *, loop ):
+    def __init__(self, url, auth, database, encoder=json.dumps, decoder=json.loads, encoder_errors=(TypeError, ValueError), decoder_errors=(TypeError, ValueError), request_timeout=..., session=None, maxsize=20, use_dns_cache=False, *, loop ):
         self.loop = loop
         self.url = url
+        self.database = database
         self.auth = auth
         self.encoder = encoder
         self.decoder = decoder
@@ -138,7 +141,7 @@ class Transport:
                 data = data.encode('utf-8')
 
         # Work out our URL
-        _url = self.url / path
+        _url = self.url / f'db/{self.database}/{path}'
         _coro = self._perform_request(method, _url, params=params, data=data)
 
         # Work out our timeout
