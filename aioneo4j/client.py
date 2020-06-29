@@ -1,10 +1,13 @@
 import asyncio
 import collections
-import typing
+import logging
 
 from yarl import URL
 
 from .transport import Transport
+
+
+logger = logging.getLogger("aioneo4j.client")
 
 
 class Client(object):
@@ -31,6 +34,7 @@ class Client(object):
     def __init__(self, host:str="127.0.0.1", port:int=7474, user:str=None, password:str=None, database:str=None, transport:Transport=Transport, request_timeout:float=..., *, loop=None):
         self.loop = loop or asyncio.get_event_loop()
         url = URL(f"http://{host}:{port}")
+        logger.info(f"Creating a client object with url {url}")
         auth = (user, password,)
         self.transport = transport(
             url=url,
@@ -68,6 +72,8 @@ class Client(object):
             request = {'query': query}
             if params:
                 request['params'] = params
+        request = {'statements': [request]}
+        logger.info(f"Sending web request to /{path} with data {request}")
 
         _, data = await self.transport.perform_request(
             'POST',

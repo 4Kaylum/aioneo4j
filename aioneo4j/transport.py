@@ -1,12 +1,16 @@
 import asyncio
 import collections
 import json
+import logging
 
 import aiohttp
 import async_timeout
 from aiohttp import ClientError
 
-from . import errors  # isort:skip  # noqa
+from . import errors
+
+
+logger = logging.getLogger("aioneo4j.transport")
 
 
 class Transport:
@@ -131,6 +135,7 @@ class Transport:
 
         # Encode the data
         if data is not None:
+            logger.debug(f"Encoding data {data}")
             if not isinstance(data, (str, bytes)):
                 try:
                     data = self.encoder(data)
@@ -142,6 +147,7 @@ class Transport:
 
         # Work out our URL
         _url = self.url / f'db/{self.database}/{path}'
+        logger.debug(f"Sending request to {_url} with data {data}")
         _coro = self._perform_request(method, _url, params=params, data=data)
 
         # Work out our timeout
