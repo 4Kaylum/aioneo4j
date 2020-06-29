@@ -60,12 +60,10 @@ class Transport:
                 username, password = auth.split(':')
             elif isinstance(auth, collections.Sequence):
                 username, password = auth
-
             auth = aiohttp.BasicAuth(
                 login=username,
                 password=password,
             )
-
         self._auth = auth
 
     auth = property(get_auth, set_auth)
@@ -83,6 +81,7 @@ class Transport:
         response = None
 
         try:
+            logger.debug(f"Performing {method.upper()} {url} ({params}) with data {data} and auth {self.auth}")
             response = await self.session.request(
                 method,
                 url,
