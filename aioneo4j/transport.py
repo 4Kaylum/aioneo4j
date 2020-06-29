@@ -107,6 +107,7 @@ class Transport:
 
             return response.status, response.headers, text
         except ClientError as exc:
+            logger.error(exc)
             raise errors.TransportError from exc
         finally:
             if response is not None:
