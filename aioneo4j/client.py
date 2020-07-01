@@ -71,7 +71,7 @@ class Client(object):
         else:
             request = {'statement': query}
             if params:
-                request['params'] = params
+                request['parameters'] = params
         request = {'statements': [request]}
         logger.info(f"Sending web request to /{path} with data {request}")
 
