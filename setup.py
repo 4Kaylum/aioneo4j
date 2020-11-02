@@ -5,19 +5,16 @@ import re
 from setuptools import setup
 
 
-def get_version():
-    regex = r"__version__\s=\s\'(?P<version>[\d\.]+?)\'"
-
-    path = ('aioneo4j', '__init__.py')
-
-    return re.search(regex, read(*path)).group('version')
-
-
 def read(*parts):
     filename = os.path.join(os.path.abspath(os.path.dirname(__file__)), *parts)
-
     with io.open(filename, encoding='utf-8', mode='rt') as fp:
         return fp.read()
+
+
+def get_version():
+    regex = r"__version__\s=\s\'(?P<version>[\d\.]+?)\'"
+    path = ('aioneo4j', '__init__.py')
+    return re.search(regex, read(*path)).group('version')
 
 
 setup(

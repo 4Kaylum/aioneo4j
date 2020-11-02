@@ -11,7 +11,8 @@ logger = logging.getLogger("aioneo4j.client")
 
 
 class Client(object):
-    r"""A Neo4j client object, used to interface with your Neo4j database
+    r"""
+    A Neo4j client object, used to interface with your Neo4j database.
 
     Parameters
     -----------
@@ -31,7 +32,9 @@ class Client(object):
         How long a request should wait to process before timing out.
     """
 
-    def __init__(self, host:str="127.0.0.1", port:int=7474, user:str=None, password:str=None, database:str=None, transport:Transport=Transport, request_timeout:float=..., *, loop=None):
+    def __init__(
+            self, host:str="127.0.0.1", port:int=7474, user:str=None, password:str=None, database:str=None, transport:Transport=Transport,
+            request_timeout:float=..., *, loop=None):
         self.loop = loop or asyncio.get_event_loop()
         url = URL(f"http://{host}:{port}")
         logger.info(f"Creating a client object with url {url}")
@@ -54,14 +57,15 @@ class Client(object):
     del get_auth, set_auth
 
     async def cypher(self, query:str, path:str='tx/commit', request_timeout:float=..., **params):
-        r"""Run a cypher on the database
+        r"""
+        Run a cypher on the database.
 
         Parameters
         -----------
         query: :class:`str`
-            The query you want to run
+            The query you want to run.
         kwargs:
-            Any of the kwargs you give the cypher will be used as input variables
+            Any of the kwargs you give the cypher will be used as input variables.
         """
 
         # If the query is a dict, we'll assume they gave the actual POST data and go from there

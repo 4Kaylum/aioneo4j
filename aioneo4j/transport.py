@@ -14,18 +14,19 @@ logger = logging.getLogger("aioneo4j.transport")
 
 
 class Transport:
-    r"""A transport object for a Neo4j client, which performs all the heavy lifting requests on the backend for the client
+    r"""
+    A transport object for a Neo4j client, which performs all the heavy lifting requests on the backend for the client.
 
     Parameters
     -----------
     url: :class:`str`
-        The base URL of the database for us to connect to
+        The base URL of the database for us to connect to.
     auth: :class:`tuple`
-        The (username, password) pair for us to authenticate with
+        The (username, password) pair for us to authenticate with.
     database: :class:`str`
-        The name of the database we'll be connecting to
+        The name of the database we'll be connecting to.
     request_timeout: :class:`float`
-        The timeout to be used when performing a request
+        The timeout to be used when performing a request.
     """
 
     _auth = None
