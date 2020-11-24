@@ -13,23 +13,23 @@ def read(*parts):
 
 def get_version():
     regex = r"__version__\s=\s\'(?P<version>[\d\.]+?)\'"
-    path = ('aioneo4j', '__init__.py')
+    path = ('aioneo4j-v4', '__init__.py')
     return re.search(regex, read(*path)).group('version')
 
 
 setup(
-    name='aioneo4j',
+    name='aioneo4j-v4',
     version=get_version(),
-    author='wikibusiness',
-    author_email='osf@wikibusiness.org',
-    url='https://github.com/wikibusiness/aioneo4j',
-    description='asyncio client for neo4j',
+    author='4Kaylum',
+    author_email='callum@voxelfox.co.uk',
+    url='https://github.com/4Kaylum/aioneo4j-v4',
+    description='asyncio client for neo4j v4',
     long_description=read('README.rst'),
     install_requires=[
         'aiohttp>=2.3.6',
         'async_timeout',
     ],
-    packages=['aioneo4j'],
+    packages=['aioneo4j-v4'],
     include_package_data=True,
     zip_safe=False,
     classifiers=[
